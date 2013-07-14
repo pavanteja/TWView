@@ -7,10 +7,11 @@
 <style>
 div[class*=span]
 {
-border:1px solid red;
+border: 1px solid #D8D8D8;
+box-shadow: 3px 3px 5px 0px #E9E9E9;
 }
 
-.chartContainer
+div[class*=chartContainer]
 {
 margin-top:10px;
 }
@@ -32,7 +33,7 @@ height:130px;
   </div>
 
 <div class="row-fluid">
-<div class="span12 chartContainer">
+<div class="span12 chartContainer1">
 
 </div>
 </div>
@@ -80,11 +81,65 @@ measureScreen()
   var graph_divh=0.34722222222;
  console.log(document.height);
  console.log(screen.height);
- $('.chartContainer').height(screen.height*graph_divh);
+ $('div[class*=chartContainer]').height(screen.height*graph_divh);
 
  }
 
+var dataSource = [
+  { Day: 1, hits: 2},
+  { Day: 2, hits: 2 },
+  { Day: 3, hits: 0 },
+  { Day: 4, hits: 1 },
+  { Day: 5, hits: 2},
+  { Day: 6, hits: 0},
+  { Day: 7, hits: 0},
+  { Day: 8, hits: 3},
+  { Day: 9, hits: 1},
+  { Day: 10, hits: 3},
+  { Day: 11, hits: 0},
+  { Day: 12, hits: 0},
+  { Day: 13, hits: 0},
+  { Day: 14, hits: 2},
+  { Day: 15, hits: 6},
+  { Day: 16, hits: 13},
+  { Day: 17, hits: 8},
+  { Day: 18, hits: 6},
+  { Day: 19, hits: 5},
+  { Day: 20, hits: 8},
+  { Day: 21, hits: 0},
+  { Day: 22, hits: 2},
+  { Day: 23, hits: 4},
+  { Day: 24, hits: 3},
+  { Day: 25, hits: 7},
+  { Day: 26, hits: 9},
+  { Day: 27, hits: 16},
+  { Day: 28, hits: 17},
+  { Day: 29, hits: 14}];
 
+$(".chartContainer1").dxChart({
+    title: "Real Time Hits",
+  animation:true,
+
+    dataSource: dataSource,
+tooltip: {
+		enabled: true,
+},
+    commonSeriesSettings: {
+        
+type: "area",
+        argumentField: "Day",
+       
+    },
+    series: [
+		{ valueField: "hits", name: "Hits", color: "orange" },
+		
+    ],
+    legend: {
+        verticalAlignment: "bottom",
+        horizontalAlignment: "center",
+	visible:false
+    }
+});
 
 </script>
 </body>
