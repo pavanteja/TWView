@@ -81,7 +81,7 @@ measureScreen()
   var graph_divh=0.34722222222;
  console.log(document.height);
  console.log(screen.height);
- $('div[class*=chartContainer]').height(screen.height*graph_divh);
+ $('div[class*=chartContainer]').height(document.height*graph_divh);
 
  }
 
@@ -116,14 +116,19 @@ var dataSource = [
   { Day: 28, hits: 17},
   { Day: 29, hits: 14}];
 
+  dispRealTimeHits(true);
+  function dispRealTimeHits(anim)
+  {
 $(".chartContainer1").dxChart({
     title: "Real Time Hits",
-  animation:true,
+  animation:anim,
 
     dataSource: dataSource,
 tooltip: {
 		enabled: true,
-},
+}
+
+,
     commonSeriesSettings: {
         
 type: "area",
@@ -138,8 +143,32 @@ type: "area",
         verticalAlignment: "bottom",
         horizontalAlignment: "center",
 	visible:false
+    },
+	argumentAxis: {
+      
+        position: 'top',
+        grid: {visible: true},
+		valueMarginsEnabled: false,
+                   
     }
 });
+}
+self.setInterval(function(){chartdisp()},5000);
+var i=30
+function chartdisp()
+{
+var today=new Date();
+var h=today.getHours();
+var m=today.getMinutes();
+var s=today.getSeconds();
+console.log(dataSource.shift())
+console.log(today);
+console.log(dataSource.push({Day:h+':'+m+':'+s,hits:Math.floor((Math.random()*100)+1)}))
+ $('.chartContainer1').empty();
+dispRealTimeHits(false);
+}
+
+
 
 </script>
 </body>
